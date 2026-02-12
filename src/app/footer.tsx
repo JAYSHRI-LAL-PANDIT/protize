@@ -1,6 +1,16 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { NAV_ITEMS } from "@/config/nav-menu";
+import { motion, type Transition, type Variants } from "framer-motion";
+import {
+  Facebook,
+  Instagram,
+  Linkedin,
+  Twitter,
+  type LucideIcon,
+} from "lucide-react";
 
 type FooterLink = { label: string; href: string };
 type FooterColumn = { title: string; links: FooterLink[] };
@@ -8,8 +18,15 @@ type FooterColumn = { title: string; links: FooterLink[] };
 type SocialItem = {
   name: string;
   href: string;
-  short?: string;
+  icon: LucideIcon;
 };
+
+const SOCIALS: SocialItem[] = [
+  { name: "Facebook", href: "https://facebook.com", icon: Facebook },
+  { name: "X", href: "https://x.com", icon: Twitter },
+  { name: "LinkedIn", href: "https://linkedin.com", icon: Linkedin },
+  { name: "Instagram", href: "https://instagram.com", icon: Instagram },
+];
 
 const BRAND = {
   name: "Protize",
@@ -21,12 +38,33 @@ const BRAND = {
   copyright: `© ${new Date().getFullYear()} Protize. All rights reserved.`,
 };
 
-const SOCIALS: SocialItem[] = [
-  { name: "Facebook", href: "https://facebook.com", short: "f" },
-  { name: "X", href: "https://x.com", short: "x" },
-  { name: "LinkedIn", href: "https://linkedin.com", short: "in" },
-  { name: "Instagram", href: "https://instagram.com", short: "ig" },
-];
+const spring: Transition = {
+  type: "spring",
+  stiffness: 360,
+  damping: 22,
+};
+
+const listVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.05,
+    },
+  },
+} satisfies Variants;
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 10, scale: 0.9, rotate: -6 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    rotate: 0,
+    transition: spring,
+  },
+} satisfies Variants;
 
 const Footer = () => {
   const grouped: FooterColumn[] = NAV_ITEMS.filter(
@@ -118,24 +156,50 @@ const Footer = () => {
               {BRAND.description}
             </p>
 
-            <ul className="mt-4 flex items-center gap-4">
-              {SOCIALS.map((s) => (
-                <li key={s.name}>
-                  <Link
-                    href={s.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={s.name}
-                    className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-primary text-primary transition-colors hover:bg-primary hover:text-white"
-                    title={s.name}
+            <motion.ul
+              className="mt-4 flex items-center gap-3"
+              variants={listVariants}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.4 }}
+            >
+              {SOCIALS.map((s) => {
+                const Icon = s.icon;
+
+                return (
+                  <motion.li
+                    key={s.name}
+                    variants={itemVariants}
+                    whileHover={{ scale: 1.1, rotate: 6, y: -2 }}
+                    whileTap={{ scale: 0.92, rotate: -6 }}
                   >
-                    <span className="text-sm font-semibold">
-                      {s.short ?? s.name.slice(0, 2)}
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
+                    <a
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={s.name}
+                      title={s.name}
+                      className="group relative inline-flex h-11 w-11 items-center justify-center rounded-full border border-primary/60 bg-white text-primary shadow-sm transition-colors hover:bg-primary hover:text-white"
+                    >
+                      {/* soft hover glow */}
+                      <span className="pointer-events-none absolute inset-0 rounded-full ring-0 ring-primary/30 transition-all duration-300 group-hover:ring-4" />
+
+                      <motion.span
+                        className="relative z-1"
+                        whileHover={{ rotate: -10, scale: 1.12 }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 400,
+                          damping: 16,
+                        }}
+                      >
+                        <Icon className="h-5 w-5" strokeWidth={2.2} />
+                      </motion.span>
+                    </a>
+                  </motion.li>
+                );
+              })}
+            </motion.ul>
           </div>
         </div>
 

@@ -238,11 +238,13 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`sticky top-0 z-50 w-full border-b border-black/5 bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/75 transition-shadow duration-300 ${
-          scrolled ? "shadow-[0_8px_24px_rgba(0,0,0,0.08)]" : ""
+        className={`sticky top-0 z-50 flex items-center justify-center w-full bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/75 transition-shadow duration-300 ${
+          scrolled
+            ? "shadow-[0_8px_24px_rgba(0,0,0,0.08)] border-b border-black/5 h-auto py-0.5"
+            : "h-20"
         }`}
       >
-        <Container className="mx-auto flex h-20 w-full items-center justify-between gap-3">
+        <Container className="mx-auto flex w-full items-center justify-between gap-3">
           {/* Logo */}
           <Link
             href="/"
