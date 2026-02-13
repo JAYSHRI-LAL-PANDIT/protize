@@ -23,17 +23,17 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: pnpm
 
-      - run: corepack enable
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
 
       - uses: actions/configure-pages@v5
         with:
           static_site_generator: next
 
       - run: pnpm install --frozen-lockfile
-      - run: pnpm next build
-      - run: pnpm next export
+      - run: pnpm build
 
       - uses: actions/upload-pages-artifact@v3
         with:
