@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { NAV_ITEMS } from "@/config/nav-menu";
 import { motion, type Transition, type Variants } from "framer-motion";
+import { withBasePath } from "@/lib/utils";
 import {
   Facebook,
   Instagram,
@@ -30,7 +31,7 @@ const SOCIALS: SocialItem[] = [
 
 const BRAND = {
   name: "Protize",
-  logoSrc: "/protize.png",
+  logoSrc: withBasePath("/protize.png"),
   logoWidth: 300,
   logoHeight: 52,
   description:

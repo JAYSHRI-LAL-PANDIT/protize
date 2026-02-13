@@ -8,6 +8,7 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
+import { withBasePath } from "@/lib/utils";
 
 type FeatureItem = {
   name: string;
@@ -56,7 +57,7 @@ const HomeFeatures = ({ feature }: HomeFeaturesProps) => {
                 <div className="mb-4 flex items-center justify-center">
                   {item.icon && (
                     <Image
-                      src={item.icon}
+                      src={withBasePath(item.icon)}
                       width={24}
                       height={24}
                       alt={`${item.name} icon`}

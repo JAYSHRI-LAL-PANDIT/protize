@@ -2,6 +2,7 @@ import { markdownify } from "@/lib/utils/textConverter";
 import Image from "next/image";
 import Link from "next/link";
 import { Container } from "../shared-ui/container";
+import { withBasePath } from "@/lib/utils";
 
 type BannerButton = {
   label?: string;
@@ -57,7 +58,7 @@ const HomeHero = ({ banner }: HomeHeroProps) => {
             <div className="group relative overflow-hidden rounded-2xl border border-border/60 bg-background/80 p-2 shadow-2xl shadow-black/5 backdrop-blur-sm">
               <Image
                 className="h-auto w-full rounded-xl object-cover transition-transform duration-500 group-hover:scale-[1.01]"
-                src={banner.image}
+                src={withBasePath(banner.image)}
                 width={1400}
                 height={760}
                 alt={banner.title || "Banner image"}

@@ -2,6 +2,7 @@ import Image from "next/image";
 import { CheckCircle2 } from "lucide-react";
 import { markdownify } from "@/lib/utils/textConverter";
 import { Container } from "../shared-ui/container";
+import { withBasePath } from "@/lib/utils";
 
 export type WorkflowSection = {
   title: string;
@@ -66,7 +67,7 @@ const Workflow = ({ workflow }: WorkflowProps) => {
           <div className="mx-auto mt-10 max-w-6xl md:mt-12">
             <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-background shadow-xl shadow-black/5">
               <Image
-                src={workflow.image}
+                src={withBasePath(workflow.image)}
                 alt={workflow.title || "Workflow image"}
                 width={1920}
                 height={900}

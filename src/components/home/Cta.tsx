@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Container } from "../shared-ui/container";
 import { markdownify } from "@/lib/utils/textConverter";
+import { withBasePath } from "@/lib/utils";
 
 type CtaButton = {
   enable?: boolean;
@@ -76,7 +77,7 @@ function Cta({ cta }: CtaProps) {
               {cta.image ? (
                 <div className="relative mx-auto max-w-md overflow-hidden rounded-2xl border border-border/60 bg-white shadow-md">
                   <Image
-                    src={cta.image}
+                    src={withBasePath(cta.image)}
                     alt={cta.title || "Call to action image"}
                     width={700}
                     height={460}

@@ -16,6 +16,7 @@ import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Container } from "@/components/shared-ui/container";
 import { NAV_ITEMS, NavChild } from "@/config/nav-menu";
+import { withBasePath } from "@/lib/utils";
 
 function isActivePath(pathname: string, href: string) {
   if (href === "/") return pathname === "/";
@@ -252,7 +253,7 @@ export default function Navbar() {
             className="flex shrink-0 items-center"
           >
             <Image
-              src="/protize.png"
+              src={withBasePath("/protize.png")}
               alt="Protize Logo"
               width={180}
               height={56}

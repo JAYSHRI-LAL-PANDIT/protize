@@ -8,6 +8,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Container } from "../shared-ui/container";
+import { withBasePath } from "@/lib/utils";
 
 type ServiceButton = {
   enable?: boolean;
@@ -44,7 +45,7 @@ function ServiceMedia({
       <div className="overflow-hidden rounded-2xl border border-border/60 bg-white shadow-sm">
         <div className="relative aspect-16/10 w-full">
           <Image
-            src={img}
+            src={withBasePath(img)}
             alt={`${service.title} preview`}
             fill
             className="object-cover"
@@ -80,7 +81,7 @@ function ServiceMedia({
           <SwiperSlide key={`${slide}-${index}`}>
             <div className="relative aspect-16/10 w-full">
               <Image
-                src={slide}
+                src={withBasePath(slide)}
                 alt={`${service.title} preview ${index + 1}`}
                 fill
                 className="object-cover"
